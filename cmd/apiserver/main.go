@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/BurntSushi/toml"
-	"github.com/pitshifer/valera-acceptor/internal/apiserver"
+	"github.com/pitshifer/valera-acceptor/internal/app/apiserver"
 )
 
 var configPath string
