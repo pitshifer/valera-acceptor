@@ -8,8 +8,9 @@ import (
 
 // Store ...
 type Store struct {
-	config *Config
-	db     *sql.DB
+	config           *Config
+	db               *sql.DB
+	deviceRepository *DeviceRepository
 }
 
 // New ...
@@ -38,4 +39,15 @@ func (s *Store) Open() error {
 // Close ...
 func (s *Store) Close() {
 	s.db.Close()
+}
+
+// Device ...
+func (s *Store) Device() *DeviceRepository {
+	if s.deviceRepository != nil {
+		return s.deviceRepository
+	}
+	s.deviceRepository = &DeviceRepository{
+		store: s,
+	}
+	return s.deviceRepository
 }
