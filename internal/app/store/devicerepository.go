@@ -9,7 +9,7 @@ type DeviceRepository struct {
 
 // Create ...
 func (r *DeviceRepository) Create(device *model.Device) (*model.Device, error) {
-	if _, err := r.store.db.Exec("INSERT INTO devices(uuid) VALUES($1)", device.UUID); err != nil {
+	if _, err := r.store.db.Exec("INSERT INTO devices(uuid) VALUES(?)", device.UUID); err != nil {
 		return nil, err
 	}
 
