@@ -5,5 +5,5 @@ import "time"
 // Device ...
 type Device struct {
 	UUID         string
-	lastActivity *time.Time
+	LastActivity *time.Time
 }

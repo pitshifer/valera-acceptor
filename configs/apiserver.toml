@@ -1,5 +1,3 @@
 bind_addr = ":8080"
 log_level = "debug"
-
-[store]
-database_url = "root:dfnheif@(localhost:5506)/test"
+database_url = "root:dfnheif@(localhost:5506)/test?parseTime=true"

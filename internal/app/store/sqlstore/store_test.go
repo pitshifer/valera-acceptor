@@ -1,4 +1,4 @@
-package store_test
+package sqlstore_test
 
 import (
 	"os"
@@ -12,7 +12,7 @@ var (
 func TestMain(m *testing.M) {
 	databaseURL = os.Getenv("DATABASE_URL")
 	if databaseURL == "" {
-		databaseURL = "root:dfnheif@(localhost:5506)/acceptor_test"
+		databaseURL = "root:dfnheif@(localhost:5506)/acceptor_test?parseTime=true"
 	}
 
 	os.Exit(m.Run())
