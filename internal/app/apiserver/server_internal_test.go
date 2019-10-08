@@ -15,5 +15,5 @@ func TestServer_HandleDeviceCreate(t *testing.T) {
 	s := NewServer(teststore.New())
 	s.ServeHTTP(rec, req)
 
-	assert.Equal(t, rec.Code, http.StatusOKG)
+	assert.Equal(t, rec.Code, http.StatusOK)
 }
