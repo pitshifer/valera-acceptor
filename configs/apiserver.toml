@@ -1,4 +1,4 @@
 bind_addr = ":8080"
 log_level = "debug"
 
-database_url = "root:dfnheif@(localhost:5506)/test?parseTime=true"
+database_url = "postgres://postgres:dfnheif@localhost:5506/acceptor?sslmode=disable"

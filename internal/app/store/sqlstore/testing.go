@@ -4,13 +4,15 @@ import (
 	"database/sql"
 	"fmt"
 	"testing"
+
+	_ "github.com/lib/pq"
 )
 
 // TestDB ...
 func TestDB(t *testing.T, databaseURL string) (*sql.DB, func(...string)) {
 	t.Helper()
 
-	db, err := sql.Open("mysql", databaseURL)
+	db, err := sql.Open("postgres", databaseURL)
 	if err != nil {
 		t.Fatal(err)
 	}

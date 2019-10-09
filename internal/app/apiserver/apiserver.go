@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"net/http"
 
+	_ "github.com/lib/pq"
+
 	"github.com/pitshifer/valera-acceptor/internal/app/store/sqlstore"
 )
 
@@ -21,7 +23,7 @@ func Start(config *Config) error {
 }
 
 func newDB(databaseURL string) (*sql.DB, error) {
-	db, err := sql.Open("mysql", databaseURL)
+	db, err := sql.Open("postgres", databaseURL)
 	if err != nil {
 		return nil, err
 	}
