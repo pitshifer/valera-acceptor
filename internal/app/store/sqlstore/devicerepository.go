@@ -14,17 +14,17 @@ type DeviceRepository struct {
 
 // Create ...
 func (r *DeviceRepository) Create(device *model.Device) error {
-	if _, err := r.store.db.Exec("INSERT INTO devices(uuid) VALUES(?)", device.UUID); err != nil {
-		return err
-	}
-
-	return nil
+	return r.store.db.QueryRow(
+		"INSERT INTO devices (mac_address, reg_at) VALUES($1, $2) RETURNING id",
+		device.MacAddress,
+		device.RegAt,
+	).Scan(&device.ID)
 }
 
-// FindByUUID ...
-func (r *DeviceRepository) FindByUUID(UUID string) (*model.Device, error) {
+// FindByID ...
+func (r *DeviceRepository) FindByID(ID uint) (*model.Device, error) {
 	device := &model.Device{}
-	if err := r.store.db.QueryRow("SELECT uuid, last_activity FROM devices").Scan(&device.UUID, &device.LastActivity); err != nil {
+	if err := r.store.db.QueryRow("SELECT id, mac_address, reg_at FROM devices WHERE id = $1", ID).Scan(&device.ID, &device.MacAddress, &device.RegAt); err != nil {
 		if err == sql.ErrNoRows {
 			return nil, store.ErrRecordNotFound
 		}

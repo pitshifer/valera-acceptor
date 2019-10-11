@@ -12,22 +12,22 @@ import (
 func TestDeviceRepository_Create(t *testing.T) {
 	s := teststore.New()
 	err := s.Device().Create(&model.Device{
-		UUID: "c509b714-54f2-4ff3-846f-b152f3f669c9",
+		ID: 1,
 	})
 
 	assert.NoError(t, err)
 }
 
-func TestDeviceRepository_FindByUUID(t *testing.T) {
+func TestDeviceRepository_FindByID(t *testing.T) {
 	s := teststore.New()
-	uuid := "cdcd235f-ef7e-4755-9bb7-3df13ee444cd"
-	_, err := s.Device().FindByUUID(uuid)
+	ID := uint(1)
+	_, err := s.Device().FindByID(ID)
 	assert.EqualError(t, err, store.ErrRecordNotFound.Error())
 
 	s.Device().Create(&model.Device{
-		UUID: uuid,
+		ID: ID,
 	})
-	d, err := s.Device().FindByUUID(uuid)
+	d, err := s.Device().FindByID(ID)
 	assert.NoError(t, err)
 	assert.NotNil(t, d)
 }

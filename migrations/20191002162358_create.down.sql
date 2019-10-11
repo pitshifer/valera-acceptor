@@ -1,1 +1,1 @@
-DROP TABLE devices
+DROP TABLE devices;

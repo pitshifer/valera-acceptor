@@ -8,18 +8,18 @@ import (
 // DeviceRepository ...
 type DeviceRepository struct {
 	store   *Store
-	devices map[string]*model.Device
+	devices map[uint]*model.Device
 }
 
 // Create ...
 func (repo *DeviceRepository) Create(device *model.Device) error {
-	repo.devices[device.UUID] = device
+	repo.devices[device.ID] = device
 	return nil
 }
 
-// FindByUUID ...
-func (repo *DeviceRepository) FindByUUID(uuid string) (*model.Device, error) {
-	if d, ok := repo.devices[uuid]; ok {
+// FindByID ...
+func (repo *DeviceRepository) FindByID(ID uint) (*model.Device, error) {
+	if d, ok := repo.devices[ID]; ok {
 		return d, nil
 	}
 

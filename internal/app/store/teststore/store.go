@@ -22,7 +22,7 @@ func (s *Store) Device() store.DeviceRepository {
 	}
 	s.deviceRepository = &DeviceRepository{
 		store:   s,
-		devices: make(map[string]*model.Device),
+		devices: make(map[uint]*model.Device),
 	}
 	return s.deviceRepository
 }

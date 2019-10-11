@@ -4,11 +4,7 @@ import "time"
 
 // Device ...
 type Device struct {
-	UUID         string     `json:"uuid"`
-	LastActivity *time.Time `json:"last_activity,omitempty"`
-}
-
-// Sanitize ...
-func (d *Device) Sanitize() {
-	d.LastActivity = nil
+	ID         uint      `json:"id"`
+	MacAddress string    `json:"mac_address"`
+	RegAt      time.Time `json:"reg_at"`
 }

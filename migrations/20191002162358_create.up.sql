@@ -1,5 +1,5 @@
 CREATE TABLE devices (
-    `uuid` CHAR(36) NOT NULL,
-    `last_activity` DATETIME NOT NULL DEFAULT NOW(),
-    PRIMARY KEY(`uuid`)
-) ENGINE = InnoDB;
+    id serial PRIMARY KEY,
+    mac_address macaddr NOT NULL,
+    reg_at TIMESTAMP NOT NULL
+);

@@ -8,10 +8,10 @@ test:
 
 rundb:
 	# docker run --name valeradb -v valera:/var/lib/mysql -p 5506:3306 -e MYSQL_ROOT_PASSWORD=dfnheif -d mysql:latest
-	docker run --name valeradb -v valera:/var/lib/postgresql/data -p 5506:5432 -e POSTGRES_PASSWORD=dfnheif -d postgres:12.0
+	docker run --name valeradb --network valeranet -v valera:/var/lib/postgresql/data -p 5506:5432 -e POSTGRES_PASSWORD=dfnheif -d postgres:12.0
 
 psql:
-	docker run -it --rm --network bridge postgres:12.0 psql -h 172.17.0.2 -U postgres
+	docker run -it --rm --network valeranet postgres:12.0 psql -h 172.21.0.2 -U postgres
 
 stopdb:
 	docker stop valeradb

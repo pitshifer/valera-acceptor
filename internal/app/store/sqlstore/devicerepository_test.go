@@ -2,6 +2,7 @@ package sqlstore_test
 
 import (
 	"testing"
+	"time"
 
 	"github.com/pitshifer/valera-acceptor/internal/app/model"
 	"github.com/pitshifer/valera-acceptor/internal/app/store"
@@ -15,7 +16,8 @@ func TestDeviceRepository_Create(t *testing.T) {
 
 	s := sqlstore.New(db)
 	err := s.Device().Create(&model.Device{
-		UUID: "c509b714-54f2-4ff3-846f-b152f3f669c9",
+		MacAddress: "00:AB:CD:EF:01:30",
+		RegAt:      time.Now(),
 	})
 
 	assert.NoError(t, err)
@@ -26,14 +28,16 @@ func TestDeviceRepository_FindByUUID(t *testing.T) {
 	defer teardown("devices")
 
 	s := sqlstore.New(db)
-	uuid := "cdcd235f-ef7e-4755-9bb7-3df13ee444cd"
-	_, err := s.Device().FindByUUID(uuid)
+	ID := uint(1)
+	_, err := s.Device().FindByID(ID)
 	assert.EqualError(t, err, store.ErrRecordNotFound.Error())
 
-	s.Device().Create(&model.Device{
-		UUID: uuid,
-	})
-	d, err := s.Device().FindByUUID(uuid)
+	device := &model.Device{
+		MacAddress: "00:AB:CD:EF:01:30",
+		RegAt:      time.Now(),
+	}
+	s.Device().Create(device)
+	d, err := s.Device().FindByID(device.ID)
 	assert.NoError(t, err)
 	assert.NotNil(t, d)
 }
