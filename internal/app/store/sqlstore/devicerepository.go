@@ -2,6 +2,7 @@ package sqlstore
 
 import (
 	"database/sql"
+	"time"
 
 	"github.com/pitshifer/valera-acceptor/internal/app/model"
 	"github.com/pitshifer/valera-acceptor/internal/app/store"
@@ -15,10 +16,10 @@ type DeviceRepository struct {
 // Create ...
 func (r *DeviceRepository) Create(device *model.Device) error {
 	return r.store.db.QueryRow(
-		"INSERT INTO devices (mac_address, reg_at) VALUES($1, $2) RETURNING id",
+		"INSERT INTO devices (mac_address, reg_at) VALUES($1, $2) RETURNING id, reg_at",
 		device.MacAddress,
-		device.RegAt,
-	).Scan(&device.ID)
+		time.Now(),
+	).Scan(&device.ID, &device.RegAt)
 }
 
 // FindByID ...

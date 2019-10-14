@@ -34,12 +34,12 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) configureRouter() {
-	s.router.HandleFunc("/devices", s.handleDeviceCreate()).Methods("POST")
+	s.router.HandleFunc("/accept", s.handleAccept()).Methods("POST")
 }
 
-func (s *server) handleDeviceCreate() http.HandlerFunc {
+func (s *server) handleAccept() http.HandlerFunc {
 	type request struct {
-		UUID string `json:"uuid"`
+		MacAddr string `json:"macAddr"`
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -50,15 +50,14 @@ func (s *server) handleDeviceCreate() http.HandlerFunc {
 		}
 
 		newDevice := &model.Device{
-			UUID: req.UUID,
+			MacAddress: req.MacAddr,
 		}
 		if err := s.store.Device().Create(newDevice); err != nil {
 			s.error(w, r, http.StatusUnprocessableEntity, err)
 			return
 		}
 
-		newDevice.Sanitize()
-		s.respond(w, r, http.StatusCreated, newDevice)
+G		s.respond(w, r, http.StatusCreated, newDevice)
 	}
 }
 
