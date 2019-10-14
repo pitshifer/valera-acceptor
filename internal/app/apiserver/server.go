@@ -57,7 +57,7 @@ func (s *server) handleAccept() http.HandlerFunc {
 			return
 		}
 
-G		s.respond(w, r, http.StatusCreated, newDevice)
+		s.respond(w, r, http.StatusCreated, newDevice)
 	}
 }
 
