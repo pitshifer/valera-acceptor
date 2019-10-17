@@ -20,4 +20,10 @@ removedb:
 	docker stop valeradb
 	docker rm valeradb
 
+migrate:
+	migrate --path=./migrations -database postgres://postgres:dfnheif@172.21.0.2:5432/acceptor?sslmode=disable ${ARGS}
+
+migrateTest:
+	migrate --path=./migrations -database postgres://postgres:dfnheif@172.21.0.2:5432/acceptor_test?sslmode=disable ${ARGS}
+
 .DEFAULT_GOAL := build
