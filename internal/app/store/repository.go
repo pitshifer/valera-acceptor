@@ -7,3 +7,8 @@ type DeviceRepository interface {
 	Create(*model.Device) error
 	FindByID(uint) (*model.Device, error)
 }
+
+// IndicationRepository ...
+type IndicationRepository interface {
+	Insert(*model.Indication) error
+}

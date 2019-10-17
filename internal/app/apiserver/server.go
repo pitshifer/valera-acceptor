@@ -39,7 +39,7 @@ func (s *server) configureRouter() {
 
 func (s *server) handleAccept() http.HandlerFunc {
 	type request struct {
-		MacAddr string `json:"macAddr"`
+		MacAddress string `json:"mac_address"`
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -50,14 +50,14 @@ func (s *server) handleAccept() http.HandlerFunc {
 		}
 
 		newDevice := &model.Device{
-			MacAddress: req.MacAddr,
+			MacAddress: req.MacAddress,
 		}
 		if err := s.store.Device().Create(newDevice); err != nil {
 			s.error(w, r, http.StatusUnprocessableEntity, err)
 			return
 		}
 
-G		s.respond(w, r, http.StatusCreated, newDevice)
+		s.respond(w, r, http.StatusCreated, newDevice)
 	}
 }
 

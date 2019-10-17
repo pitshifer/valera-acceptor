@@ -1,6 +1,8 @@
 package apiserver
 
 import (
+	"bytes"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -10,10 +12,35 @@ import (
 )
 
 func TestServer_HandleDeviceCreate(t *testing.T) {
-	rec := httptest.NewRecorder()
-	req, _ := http.NewRequest(http.MethodPost, "/devices", nil)
 	s := NewServer(teststore.New())
-	s.ServeHTTP(rec, req)
+	testCases := []struct {
+		name         string
+		payload      interface{}
+		expectedCode int
+	}{
+		{
+			name: "valid",
+			payload: map[string]string{
+				"mac_address": "00:aa:00:64:c8:10",
+			},
+			expectedCode: http.StatusCreated,
+		},
+		{
+			name:         "invalid payload",
+			payload:      "invalid",
+			expectedCode: http.StatusBadRequest,
+		},
+	}
 
-	assert.Equal(t, rec.Code, http.StatusOK)
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			rec := httptest.NewRecorder()
+			b := &bytes.Buffer{}
+			json.NewEncoder(b).Encode(tc.payload)
+			req, _ := http.NewRequest(http.MethodPost, "/accept", b)
+
+			s.ServeHTTP(rec, req)
+			assert.Equal(t, tc.expectedCode, rec.Code)
+		})
+	}
 }
