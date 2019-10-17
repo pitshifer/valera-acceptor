@@ -10,10 +10,13 @@ type Indication struct {
 	ID        uint
 	DeviceID  uint
 	CreatedAt time.Time
-	Data      struct {
-		Type  string  `json:"type"`
-		Value float32 `json:"value"`
-	}
+	Data      IndicationData
+}
+
+// IndicationData ...
+type IndicationData struct {
+	Type  string  `json:"type"`
+	Value float32 `json:"value"`
 }
 
 // DataToJSON returns json string

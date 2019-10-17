@@ -7,7 +7,8 @@ import (
 
 // Store ...
 type Store struct {
-	deviceRepository *DeviceRepository
+	deviceRepository     *DeviceRepository
+	indicationRepository *IndicationRepository
 }
 
 // New ...
@@ -25,4 +26,15 @@ func (s *Store) Device() store.DeviceRepository {
 		devices: make(map[uint]*model.Device),
 	}
 	return s.deviceRepository
+}
+
+func (s *Store) Indication() store.IndicationRepository {
+	if s.indicationRepository != nil {
+		return s.indicationRepository
+	}
+	s.indicationRepository = &IndicationRepository{
+		store:       s,
+		indications: make(map[uint]*model.Indication),
+	}
+	return s.indicationRepository
 }
