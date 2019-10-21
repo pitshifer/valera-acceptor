@@ -4,6 +4,7 @@ import (
 	"database/sql"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/pitshifer/valera-acceptor/internal/app/model"
 	"github.com/pitshifer/valera-acceptor/internal/app/store"
 )
 
@@ -28,7 +29,9 @@ func (s *Store) Device() store.DeviceRepository {
 	}
 	s.deviceRepository = &DeviceRepository{
 		store: s,
+		cache: make(map[string]*model.Device, 30),
 	}
+	s.deviceRepository.setUp()
 	return s.deviceRepository
 }
 

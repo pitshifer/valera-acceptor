@@ -49,15 +49,23 @@ func (s *server) handleAccept() http.HandlerFunc {
 			return
 		}
 
-		newDevice := &model.Device{
-			MacAddress: req.MacAddress,
-		}
-		if err := s.store.Device().Create(newDevice); err != nil {
+		device, err := s.store.Device().FindByMacAddress(req.MacAddress)
+		if err == store.ErrRecordNotFound {
+			newDevice := &model.Device{
+				MacAddress: req.MacAddress,
+			}
+			if err := s.store.Device().Create(newDevice); err != nil {
+				s.error(w, r, http.StatusUnprocessableEntity, err)
+				return
+			}
+			s.respond(w, r, http.StatusCreated, "new device was create")
+			return
+		} else if err != nil {
 			s.error(w, r, http.StatusUnprocessableEntity, err)
 			return
 		}
 
-		s.respond(w, r, http.StatusCreated, newDevice)
+		s.respond(w, r, http.StatusAccepted, device)
 	}
 }
 

@@ -6,6 +6,7 @@ import "github.com/pitshifer/valera-acceptor/internal/app/model"
 type DeviceRepository interface {
 	Create(*model.Device) error
 	FindByID(uint) (*model.Device, error)
+	FindByMacAddress(string) (*model.Device, error)
 }
 
 // IndicationRepository ...

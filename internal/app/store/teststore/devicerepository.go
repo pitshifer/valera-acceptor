@@ -9,6 +9,7 @@ import (
 type DeviceRepository struct {
 	store   *Store
 	devices map[uint]*model.Device
+	cache   map[string]*model.Device
 }
 
 // Create ...
@@ -20,6 +21,15 @@ func (repo *DeviceRepository) Create(device *model.Device) error {
 // FindByID ...
 func (repo *DeviceRepository) FindByID(ID uint) (*model.Device, error) {
 	if d, ok := repo.devices[ID]; ok {
+		return d, nil
+	}
+
+	return nil, store.ErrRecordNotFound
+}
+
+// FindByMacAddress ...
+func (repo *DeviceRepository) FindByMacAddress(macAddress string) (*model.Device, error) {
+	if d, ok := repo.cache[macAddress]; ok {
 		return d, nil
 	}
 
