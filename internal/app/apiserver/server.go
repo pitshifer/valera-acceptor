@@ -3,6 +3,7 @@ package apiserver
 import (
 	"encoding/json"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/pitshifer/valera-acceptor/internal/app/model"
@@ -39,7 +40,8 @@ func (s *server) configureRouter() {
 
 func (s *server) handleAccept() http.HandlerFunc {
 	type request struct {
-		MacAddress string `json:"mac_address"`
+		MacAddress string               `json:"mac_address"`
+		Data       model.IndicationData `json:"data"`
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -49,21 +51,29 @@ func (s *server) handleAccept() http.HandlerFunc {
 			return
 		}
 
+		var device *model.Device
 		device, err := s.store.Device().FindByMacAddress(req.MacAddress)
-		if err == store.ErrRecordNotFound {
-			newDevice := &model.Device{
-				MacAddress: req.MacAddress,
-			}
-			if err := s.store.Device().Create(newDevice); err != nil {
+		if err != nil {
+			if err == store.ErrRecordNotFound {
+				device = &model.Device{
+					MacAddress: req.MacAddress,
+				}
+				if err := s.store.Device().Create(device); err != nil {
+					s.error(w, r, http.StatusUnprocessableEntity, err)
+					return
+				}
+				logrus.Infof("Insert new device into DB. Device mac address: %s", device.MacAddress)
+			} else {
 				s.error(w, r, http.StatusUnprocessableEntity, err)
 				return
 			}
-			s.respond(w, r, http.StatusCreated, "new device was create")
-			return
-		} else if err != nil {
-			s.error(w, r, http.StatusUnprocessableEntity, err)
-			return
 		}
+
+		s.store.HandleNewIndication(&model.Indication{
+			DeviceID:  device.ID,
+			CreatedAt: time.Now(),
+			Data:      req.Data,
+		})
 
 		s.respond(w, r, http.StatusAccepted, device)
 	}

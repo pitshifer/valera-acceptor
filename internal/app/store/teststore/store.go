@@ -38,3 +38,10 @@ func (s *Store) Indication() store.IndicationRepository {
 	}
 	return s.indicationRepository
 }
+
+func (s *Store) Run() {
+	for {
+	}
+}
+
+func (s *Store) HandleNewIndication(i *model.Indication) {}

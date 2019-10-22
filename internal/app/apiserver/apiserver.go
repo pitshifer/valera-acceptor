@@ -2,6 +2,7 @@ package apiserver
 
 import (
 	"database/sql"
+	"fmt"
 	"net/http"
 
 	_ "github.com/lib/pq"
@@ -18,8 +19,10 @@ func Start(config *Config) error {
 
 	defer db.Close()
 	store := sqlstore.New(db)
-	_ = store.Device() // fixme
+	go store.Run()
+
 	s := NewServer(store)
+	fmt.Println("Server is starting...")
 	return http.ListenAndServe(config.BindAddr, s)
 }
 

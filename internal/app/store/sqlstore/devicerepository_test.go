@@ -23,7 +23,7 @@ func TestDeviceRepository_Create(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func TestDeviceRepository_FindByUUID(t *testing.T) {
+func TestDeviceRepository_FindByID(t *testing.T) {
 	db, teardown := sqlstore.TestDB(t, databaseURL)
 	defer teardown("devices")
 
@@ -38,6 +38,25 @@ func TestDeviceRepository_FindByUUID(t *testing.T) {
 	}
 	s.Device().Create(device)
 	d, err := s.Device().FindByID(device.ID)
+	assert.NoError(t, err)
+	assert.NotNil(t, d)
+}
+
+func TestDeviceRepository_FindByMacAddress(t *testing.T) {
+	db, teardown := sqlstore.TestDB(t, databaseURL)
+	defer teardown("devices")
+
+	s := sqlstore.New(db)
+	macAddress := "00:AB:CD:EF:01:30"
+	_, err := s.Device().FindByMacAddress(macAddress)
+	assert.EqualError(t, err, store.ErrRecordNotFound.Error())
+
+	device := &model.Device{
+		MacAddress: "00:AB:CD:EF:01:30",
+		RegAt:      time.Now(),
+	}
+	s.Device().Create(device)
+	d, err := s.Device().FindByMacAddress(device.MacAddress)
 	assert.NoError(t, err)
 	assert.NotNil(t, d)
 }

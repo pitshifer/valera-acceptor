@@ -37,11 +37,17 @@ func (r DeviceRepository) setUp() error {
 
 // Create ...
 func (r *DeviceRepository) Create(device *model.Device) error {
-	return r.store.db.QueryRow(
+	err := r.store.db.QueryRow(
 		"INSERT INTO devices (mac_address, reg_at) VALUES($1, $2) RETURNING id, reg_at",
 		device.MacAddress,
 		time.Now(),
 	).Scan(&device.ID, &device.RegAt)
+	if err != nil {
+		return err
+	}
+
+	r.cache[device.MacAddress] = device
+	return nil
 }
 
 // FindByID ...
