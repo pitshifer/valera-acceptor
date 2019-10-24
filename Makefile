@@ -7,7 +7,6 @@ test:
 	go test -v -race -timeout 30s ./ ...
 
 rundb:
-	# docker run --name valeradb -v valera:/var/lib/mysql -p 5506:3306 -e MYSQL_ROOT_PASSWORD=dfnheif -d mysql:latest
 	docker run --name valeradb --network valeranet -v valera:/var/lib/postgresql/data -p 5506:5432 -e POSTGRES_PASSWORD=dfnheif -d postgres:12.0
 
 psql:
