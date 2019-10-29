@@ -17,7 +17,7 @@ jobs:
             echo '^^^That should look familiar^^^'
 
       - run:
-        name: Running in a unique container
-        command: go version
+          name: Running in a unique container
+          command: go version
 
 
