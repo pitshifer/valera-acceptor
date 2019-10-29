@@ -4,8 +4,16 @@ jobs:
     docker:
      - image: alpine:3.7
     steps:
+      - checkout
       - run:
           name: The first step
           command: |
             echo 'H W !'
             echo 'This is the delivery pipeline'
+      - run:
+          name: Code has arrived
+          command: |
+            ls -lha
+            echo '^^^That should look familiar^^^'
+
+
