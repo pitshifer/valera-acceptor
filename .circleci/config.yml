@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-     - image: alpine:3.7
+     - image: circleci/golang:1.13.0
     steps:
       - checkout
       - run:
@@ -15,5 +15,9 @@ jobs:
           command: |
             ls -lha
             echo '^^^That should look familiar^^^'
+
+      - run:
+        name: Running in a unique container
+        command: go version
 
 
