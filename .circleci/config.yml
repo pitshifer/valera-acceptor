@@ -2,7 +2,10 @@ version: 2.1
 jobs:
   build:
     docker:
-     - image: circleci/node:4.8.2
+     - image: alpine:3.7
     steps:
-      - checkout
-      - run: echo "H W"
+      - run:
+        name: The first step
+        command: |
+          echo 'H W !'
+          echo 'This is the delivery pipeline'
