@@ -1,4 +1,4 @@
 bind_addr = ":8080"
 log_level = "debug"
 
-database_url = "postgres://postgres:dfnheif@db/acceptor?sslmode=disable"
+database_url = "postgres://postgres:{{POSTGRES_PASSWORD}}@db/acceptor?sslmode=disable"

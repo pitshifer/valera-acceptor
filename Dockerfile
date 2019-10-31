@@ -11,13 +11,14 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -v /app/cmd/apiserve
 FROM alpine:latest
 
 RUN apk --no-cache add ca-certificates
-
-# WORKDIR /root/
+RUN apk --no-cache add bash
 
 RUN mkdir /app
 COPY --from=builder /app /app
 WORKDIR /app
 
 EXPOSE 8080
+
+ENTRYPOINT [ "/app/start.sh" ]
 
 CMD ["/app/apiserver"]

@@ -8,7 +8,9 @@ services:
       - valera:/var/lib/postgresql/data
 
   acceptor:
-    image: apiservertest:1.0
+    image: apiserver:test
+    environment:
+      POSTGRES_PASSWORD: dfnheif
     depends_on:
       - db
     ports:
