@@ -7,10 +7,10 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: go mod install
+          command: go mod download
       - run:
           name: Go test
-          command: go test ...G
+          command: go test ...
 
       - run:
           name: Running in a unique container
