@@ -1,23 +1,17 @@
 version: 2.1
 jobs:
-  build:
+  testing:
     docker:
      - image: circleci/golang:1.13.0
     steps:
       - checkout
       - run:
-          name: The first step
-          command: |
-            echo 'H W !'
-            echo 'This is the delivery pipeline'
+          name: Install dependencies
+          command: go mod install
       - run:
-          name: Code has arrived
-          command: |
-            ls -lha
-            echo '^^^That should look familiar^^^'
+          name: Go test
+          command: go test ...G
 
       - run:
           name: Running in a unique container
           command: go version
-
-
