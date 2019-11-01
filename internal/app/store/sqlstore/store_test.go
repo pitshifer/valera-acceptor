@@ -1,4 +1,4 @@
-// package sqlstore_test
+package sqlstore_test
 
 // import (
 // 	"os"
