@@ -10,7 +10,7 @@ jobs:
           command: go mod download
       - run:
           name: Go test
-          command: go test ...
+          command: go test ./...
 
       - run:
           name: Running in a unique container
