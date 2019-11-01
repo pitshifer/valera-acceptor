@@ -26,3 +26,4 @@ migrateTest:
 	migrate --path=./migrations -database postgres://postgres:dfnheif@localhost:5506/acceptor_test?sslmode=disable ${ARGS}
 
 .DEFAULT_GOAL := build
+
