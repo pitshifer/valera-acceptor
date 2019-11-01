@@ -23,7 +23,7 @@ func TestServer_HandleDeviceCreate(t *testing.T) {
 			payload: map[string]string{
 				"mac_address": "00:aa:00:64:c8:10",
 			},
-			expectedCode: http.StatusCreated,
+			expectedCode: http.StatusAccepted,
 		},
 		{
 			name:         "invalid payload",
