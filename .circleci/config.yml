@@ -7,16 +7,16 @@ jobs:
       - checkout
 
       - restore_cache:
-          keys:
-            - go-dependencies-{{ checksum "go.sum" }}
+          key: go-dependencies-{{ checksum "go.sum" }}
 
       - run:
           name: Install dependencies
           command: go mod download
 
       - save_cache:
-          keys: 
-            - go-dependencies-{{ checksum "go.sum" }}
+          key: go-dependencies-{{ checksum "go.sum" }}
+          paths:
+            - "/go/pkg" 
 
       - run:
           name: Go test
