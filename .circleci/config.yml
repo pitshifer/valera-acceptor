@@ -5,9 +5,18 @@ jobs:
      - image: circleci/golang:1.13.0
     steps:
       - checkout
+
+      - restore_cache:
+          keys:
+            - go-dependencies-{{ checksum "go.sum" }}
+
       - run:
           name: Install dependencies
           command: go mod download
+
+      - save_cache:
+          keys: 
+            - go-dependencies-{{ checksum "go.sum" }}
 
       - run:
           name: Go test
