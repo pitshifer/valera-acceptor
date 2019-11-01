@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  testing:
+  build:
     docker:
      - image: circleci/golang:1.13.0
     steps:
