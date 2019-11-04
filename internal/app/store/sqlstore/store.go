@@ -58,7 +58,8 @@ func (s *Store) Run() {
 		case indication := <-s.indicationCh:
 			err := s.Indication().Insert(indication)
 			if err != nil {
-				logrus.Errorf("Fail on insert a new indication - %v", indication)
+				logrus.Errorf("Fail on insert a new indication - %v: %s", indication, err)
+				break
 			}
 			logrus.Infof("New indication was saved - %v", indication)
 		}
