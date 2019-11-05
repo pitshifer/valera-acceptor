@@ -25,7 +25,7 @@ jobs:
 
   build_and_push:
     docker:
-      -image: docker:18.06.0-ce
+      - image: docker:18.06.0-ce
 
     steps:
       - checkout
