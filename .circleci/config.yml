@@ -35,6 +35,7 @@ jobs:
           command: |
             echo 'export IMAGE_TAG=${CIRCLE_TAG:-latest}' >> $BASH_ENV
             echo 'export IMAGE_NAME=apiserver' >> $BASH_ENV
+
       - run:
           name: Build and push Docker image
           command: |
