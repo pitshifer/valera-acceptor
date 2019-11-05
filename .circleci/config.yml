@@ -21,3 +21,24 @@ jobs:
       - run:
           name: Go test
           command: go test ./...
+
+  build_and_push:
+    docker:
+      -image: docker:18.06.0-ce
+    steps:
+      - checkout
+
+      - setup_remote_docker
+
+      - run:
+          name: Setup environment
+          command: |
+            echo 'export IMAGE_TAG=${CIRCLE_TAG:-latest}' >> $BASH_ENV
+            echo 'export IMAGE_NAME=apiserver' >> $BASH_ENV
+      - run:
+          name: Build and push Docker image
+          command: |
+            source $BASH_ENV
+            docker build -f Dockerfile-front -t pitshifer/$IMAGE_NAME:$IMAGE_TAG .
+            docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+            docker push pitshifer/$IMAGE_NAME:$IMAGE_TAG
