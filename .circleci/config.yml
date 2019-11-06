@@ -42,7 +42,7 @@ jobs:
           name: Build and push Docker image
           command: |
             source $BASH_ENV
-            docker build -f Dockerfile-front -t pitshifer/$IMAGE_NAME:$IMAGE_TAG .
+            docker build -t pitshifer/$IMAGE_NAME:$IMAGE_TAG .
             docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
             docker push pitshifer/$IMAGE_NAME:$IMAGE_TAG
 
