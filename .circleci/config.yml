@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 jobs:
   build:
     docker:
@@ -42,3 +42,13 @@ jobs:
             docker build -f Dockerfile-front -t pitshifer/$IMAGE_NAME:$IMAGE_TAG .
             docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
             docker push pitshifer/$IMAGE_NAME:$IMAGE_TAG
+
+workflows:
+  version 2:
+  deploy-dev:
+        jobs:
+          - build_and_push:
+              filters:
+                branches:
+                  only:
+                    - master
