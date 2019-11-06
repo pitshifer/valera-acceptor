@@ -2,6 +2,7 @@
 
 set -e 
 
-sed -i "s|{{POSTGRES_PASSWORD}}|$POSTGRES_PASSWORD|" /app/configs/apiserver.toml
+sed -i "s|{{POSTGRES_PASSWORD}}|$POSTGRES_PASSWORD|" /app/configs/acceptor.toml
 
+exec "$@ -migrate=up"
 exec "$@"
