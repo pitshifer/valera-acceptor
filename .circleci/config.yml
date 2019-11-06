@@ -68,7 +68,7 @@ workflows:
               only:
                 - master
 
-      - deploy:
+      - deliver:
           filters:
             branches:
               only:
