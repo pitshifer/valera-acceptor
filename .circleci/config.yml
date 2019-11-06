@@ -2,7 +2,8 @@ version: 2
 jobs:
   build:
     docker:
-     - image: circleci/golang:1.13.0
+      - image: circleci/golang:1.13.0
+
     steps:
       - checkout
 
@@ -24,7 +25,8 @@ jobs:
 
   build_and_push:
     docker:
-      -image: docker:18.06.0-ce
+      - image: docker:18.06.0-ce
+
     steps:
       - checkout
 
@@ -35,6 +37,7 @@ jobs:
           command: |
             echo 'export IMAGE_TAG=${CIRCLE_TAG:-latest}' >> $BASH_ENV
             echo 'export IMAGE_NAME=apiserver' >> $BASH_ENV
+
       - run:
           name: Build and push Docker image
           command: |
