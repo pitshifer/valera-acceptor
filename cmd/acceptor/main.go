@@ -14,7 +14,7 @@ var configPath string
 var migrateAction string
 
 func init() {
-	flag.StringVar(&configPath, "c", "configs/apiserver.toml", "path to config file")
+	flag.StringVar(&configPath, "c", "configs/acceptor.toml", "path to config file")
 	flag.StringVar(&migrateAction, "migrate", "", "apply migrates up or down")
 }
 

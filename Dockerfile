@@ -4,7 +4,7 @@ RUN mkdir /app
 COPY . /app
 WORKDIR /app
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -v /app/cmd/apiserver
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -v /app/cmd/acceptor
 
 #################
 
@@ -21,4 +21,4 @@ EXPOSE 8080
 
 ENTRYPOINT [ "/app/start.sh" ]
 
-CMD ["/app/apiserver"]
+CMD ["/app/acceptor"]
