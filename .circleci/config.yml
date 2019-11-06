@@ -47,7 +47,7 @@ jobs:
             docker push pitshifer/$IMAGE_NAME:$IMAGE_TAG
 
 workflows:
-  version 2:
+  version: 2
   deploy-dev:
         jobs:
           - build_and_push:
