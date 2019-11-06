@@ -8,7 +8,7 @@ services:
       - valera:/var/lib/postgresql/data
 
   acceptor:
-    image: pitshifer/acceptor:latest
+    image: acceptor:test
     environment:
       POSTGRES_PASSWORD: dfnheif
     depends_on:

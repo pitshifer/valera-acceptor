@@ -31,7 +31,8 @@ func main() {
 	if len(migrateAction) > 0 {
 		err := migrate.Do(config, migrateAction)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
+			os.Exit(0)
 		}
 		log.Println("migrations applied successfully.")
 		os.Exit(0)
