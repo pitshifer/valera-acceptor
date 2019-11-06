@@ -73,5 +73,5 @@ workflows:
             branches:
               only:
                 - master
-          required:
+          requires:
             - build_and_push
