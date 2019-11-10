@@ -41,18 +41,20 @@ func (s *server) configureRouter() {
 func (s *server) handleAccept() http.HandlerFunc {
 	type request struct {
 		MacAddress string               `json:"mac_address"`
+		Ip         string               `json:"ip"`
 		RSSI       int                  `json:"rssi"`
 		Data       model.IndicationData `json:"data"`
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
-		logrus.Info("New request: ")
 		req := &request{}
 		if err := json.NewDecoder(r.Body).Decode(req); err != nil {
 			logrus.Errorf("Bad request: %s", err)
 			s.error(w, r, http.StatusBadRequest, err)
 			return
 		}
+
+		logrus.Infof("Device IP: %s", req.Ip)
 
 		var device *model.Device
 		device, err := s.store.Device().FindByMacAddress(req.MacAddress)
