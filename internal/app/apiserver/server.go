@@ -53,7 +53,7 @@ func (s *server) handleAccept() http.HandlerFunc {
 			return
 		}
 
-		logrus.Infof("Device IP: %s", req.Ip)
+		logrus.Infof("Device IP: %s")
 
 		var device *model.Device
 		device, err := s.store.Device().FindByMacAddress(req.MacAddress)
