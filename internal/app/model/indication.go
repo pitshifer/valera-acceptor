@@ -17,8 +17,6 @@ type Indication struct {
 type IndicationData struct {
 	Name  string      `json:"name"`
 	Value interface{} `json:"value"`
-	Type  string      `json:"type"`
-	Date  time.Time   `json:"date"`
 }
 
 // DataToJSON returns json string
