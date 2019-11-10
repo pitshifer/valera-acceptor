@@ -52,7 +52,7 @@ jobs:
     steps:
       - run:
           name: Deploy over ssh
-          command: ssh -vv $SSH_USER@$SSH_HOST "cd ./acceptor &&
+          command: ssh -vv -o PreferredAuthentications=publickey $SSH_USER@$SSH_HOST "cd ./acceptor &&
             docker pull pitshifer/acceptor &&
             docker-compose down &&
             docker-compose up -d &&
