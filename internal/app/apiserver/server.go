@@ -46,8 +46,10 @@ func (s *server) handleAccept() http.HandlerFunc {
 	}
 
 	return func(w http.ResponseWriter, r *http.Request) {
+		logrus.Info("New request: ")
 		req := &request{}
 		if err := json.NewDecoder(r.Body).Decode(req); err != nil {
+			logrus.Errorf("Bad request: %s", err)
 			s.error(w, r, http.StatusBadRequest, err)
 			return
 		}
