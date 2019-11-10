@@ -41,7 +41,6 @@ func (s *server) configureRouter() {
 func (s *server) handleAccept() http.HandlerFunc {
 	type request struct {
 		MacAddress string               `json:"mac_address"`
-		Ip         string               `json:"ip"`
 		RSSI       int                  `json:"rssi"`
 		Data       model.IndicationData `json:"data"`
 	}
