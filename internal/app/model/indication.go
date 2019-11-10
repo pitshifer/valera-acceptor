@@ -9,14 +9,15 @@ import (
 type Indication struct {
 	ID        uint
 	DeviceID  uint
+	RSSI      int
 	CreatedAt time.Time
 	Data      IndicationData
 }
 
 // IndicationData ...
 type IndicationData struct {
-	Name  string      `json:"name"`
-	Value interface{} `json:"value"`
+	Temperature float32 `json:"temperature,omitempty"`
+	Humidity    uint    `json:"humidity,omitempty"`
 }
 
 // DataToJSON returns json string
